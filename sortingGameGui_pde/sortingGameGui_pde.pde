@@ -54,15 +54,3 @@ void swapChar(){
   }
   
 }
-
-boolean checkWinner(char[][] board){
-  char[][] boardWinner={{'A', 'B', 'C', 'D'}, {'E', 'F', 'G', 'H'}, {'I', 'J', 'K', ' '}};
-  for(int r=0; r<3; r++){
-    for(int c=0; c<4; c++){
-      if(board[r][c] != boardWinner[r][c]){
-        return false;
-      }
-    }
-  }
-  return true;
-}
