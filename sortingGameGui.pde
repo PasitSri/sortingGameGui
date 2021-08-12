@@ -11,6 +11,10 @@ void setup(){
 
 void draw(){
   createBoard();
+  swapChar();
+  if(checkWinner(board)){
+    win_sceen();
+  }
 }
 
 void createBoard(){
@@ -53,4 +57,46 @@ void swapChar(){
     }
   }
   
+}
+
+boolean checkWinner(char[][] board){
+  char[][] boardWinner={{'A', 'B', 'C', 'D'}, {'E', 'F', 'G', 'H'}, {'I', 'J', 'K', ' '}};
+  for(int r=0; r<3; r++){
+    for(int c=0; c<4; c++){
+      if(board[r][c] != boardWinner[r][c]){
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+void win_sceen(){
+  if(checkWinner(board) == true){
+    background(255);
+    rect(100,50,50,300,28);
+    rect(100,300,300,50,28);
+    rect(350,50,50,300,28);
+    rect(225,150,50,200,28);
+    rect(410,50,50,300,28);
+    rect(480,50,50,300,28);
+    rect(480,50,100,50,28);
+    rect(540,50,50,300,28);
+    rect(540,300,100,50,28);
+    rect(600,50,50,300,28);
+    rect(480,370,50,300,28);
+    rect(480,370,100,50,28);
+    rect(540,370,50,300,28);
+    rect(540,620,100,50,28);
+    rect(600,370,50,300,28);
+    rect(670,370,50,300,28);
+    rect(670,370,200,50,28);
+    rect(670,495,170,50,28);
+    rect(670,620,200,50,28);
+    rect(890,370,50,300,28);
+    rect(890,370,200,50,28);
+    rect(890,495,200,50,28);
+    rect(1045,370,50,170,28);
+    rect(1000,495,50,170,28);
+  }
 }
