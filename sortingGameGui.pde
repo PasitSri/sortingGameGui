@@ -13,7 +13,13 @@ void draw(){
   createBoard();
   swapChar();
   if(checkWinner(board)){
+<<<<<<< HEAD
     win_sceen();
+=======
+    println("Winner");
+    createBoard();
+    swapChar();
+>>>>>>> 39ab7a87dcde7cd7903e28904415430f6e5d7d57
   }
 }
 
