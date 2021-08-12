@@ -11,6 +11,12 @@ void setup(){
 
 void draw(){
   createBoard();
+  swapChar();
+  if(checkWinner(board)){
+    println("Winner");
+    createBoard();
+    swapChar();
+  }
 }
 
 void createBoard(){
