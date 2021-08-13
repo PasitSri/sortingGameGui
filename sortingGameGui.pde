@@ -1,36 +1,29 @@
-int w=1100, h=800;
+int w=1200, h=900;
 int[] blank_position={2, 2};
 char[][] board={{'A', 'B', 'C', 'D'}, {'E', 'F', 'G', 'H'}, {'I', 'J', ' ', 'K'}};
 //char[][] board[3][4];
-<<<<<<< HEAD
-int size=200;
 //boolean firsttime = true;
 //int[] Space = {0,0};
-=======
 int size=300;
 boolean firsttime = true;
 int[] Space = {0,0};
->>>>>>> 8c4e0ae5a265be4aa3ada4bc75d659106b926c0b
 
 void setup(){
-  size(1100, 800);
+  size(1200, 900);
   background(255);
   textSize(100);
   randomAlpha();
 }
 
 void draw(){
-<<<<<<< HEAD
   //if(firsttime){
   //  randomAlpha();
   //  firsttime = false;
   //}
-=======
   if(firsttime){
     randomAlpha();
     firsttime = false;
   }
->>>>>>> 8c4e0ae5a265be4aa3ada4bc75d659106b926c0b
   createBoard();
   swapChar();
   if(checkWinner(board)){
@@ -51,13 +44,10 @@ void randomAlpha(){
         blank_position[0] = ranRow;
         blank_position[1] = ranCol;
       }
-<<<<<<< HEAD
     else if(board[r][c] == ' '){
       blank_position[0] = r;
       blank_position[1] = c;
     }
-=======
->>>>>>> 8c4e0ae5a265be4aa3ada4bc75d659106b926c0b
     }
   }  
 }
