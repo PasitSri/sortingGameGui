@@ -1,4 +1,4 @@
-int w=1200, h=900;
+int w=800, h=600;
 int[] blank_position={2, 2};
 String[][] board={{"A", "B", "C", "D"}, {"E", "F", "G", "H"}, {"I", "J", " ", "K"}};
 int size=300;
@@ -38,9 +38,9 @@ void loadGame(){
 
 
 void setup(){
-  size(1200,900);
+  ListForSave = new JSONArray();
+  size(800, 650);
   background(255);
-  textSize(100);
   randomAlpha();
   loadGame();
 }
@@ -77,11 +77,12 @@ void randomAlpha(){
 
 void createBoard(){
   background(255);
-  int text_x=125, text_y=200;
+  int text_x=70, text_y=140;
   for(int r=0; r<3; r++){
     line(0, size*r, w, size*r);
     for(int c=0; c<4; c++){
       fill(0);
+      textSize(100);
       text(board[r][c], text_x, text_y);
       text_x += size;
       line(size*c, 0, size*c, h);
@@ -89,8 +90,10 @@ void createBoard(){
     text_y += size;
     text_x = 125;
   }
-      
+  textSize(30);
+  text("SAVE", 350, 640);
 }
+
 void swapChar(){
   int block_x=0;
   int block_y=0;
@@ -113,7 +116,6 @@ void swapChar(){
         block_y += size;
     }
   }
-  
 }
 
 boolean checkWinner(String[][] board){
