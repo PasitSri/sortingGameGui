@@ -1,31 +1,14 @@
-<<<<<<< HEAD
 A
-B
-=======
-I
-B
- 
-D
-A
-J
-F
-H
 K
->>>>>>> d1247c71a03799d27d699ae8bf087cdacb32f566
-C
+ 
 D
 E
-F
+C
+B
 G
-<<<<<<< HEAD
-H
 I
+F
 J
-K
- 
-2
-3
-=======
+H
 0
 2
->>>>>>> d1247c71a03799d27d699ae8bf087cdacb32f566
