@@ -41,7 +41,10 @@ void setup(){
   size(800, 650);
   background(255);
   randomAlpha();
-  loadGame();
+  File f = new File("data.txt");
+  if(f.exists() && !f.isDirectory()){
+	  loadGame();
+  }
 }
 
 void draw(){
