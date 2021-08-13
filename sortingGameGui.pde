@@ -38,7 +38,6 @@ void loadGame(){
 
 
 void setup(){
-  ListForSave = new JSONArray();
   size(800, 650);
   background(255);
   randomAlpha();
