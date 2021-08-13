@@ -1,13 +1,13 @@
-int w=1200, h=900;
+int w=800, h=600;
 int[] blank_position={2, 2};
 char[][] board={{'A', 'B', 'C', 'D'}, {'E', 'F', 'G', 'H'}, {'I', 'J', ' ', 'K'}};
 //char[][] board[3][4];
-int size=300;
+int size=200;
 boolean firsttime = true;
 int[] Space = {0,0};
 
 void setup(){
-  size(1200, 900);
+  size(800, 600);
   background(255);
   textSize(100);
 }
@@ -43,7 +43,7 @@ void randomAlpha(){
 
 void createBoard(){
   background(255);
-  int text_x=125, text_y=200;
+  int text_x=70, text_y=140;
   for(int r=0; r<3; r++){
     line(0, size*r, w, size*r);
     for(int c=0; c<4; c++){
