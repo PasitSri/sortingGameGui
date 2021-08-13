@@ -93,7 +93,10 @@ void createBoard(){
     text_x = 65;
   }
   textSize(30);
-  text("SAVE", 360, 640);
+  line(800, 600, 0, 600);
+  line(400, 650, 400, 600);
+  text("SAVE", 175, 640);
+  text("QUIT", 570, 640);
 }
 
 void swapChar(){
