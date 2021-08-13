@@ -1,19 +1,39 @@
-/*import java.io.*;*/
 int w=1200, h=900;
 int[] blank_position={2, 2};
 String[][] board={{"A", "B", "C", "D"}, {"E", "F", "G", "H"}, {"I", "J", " ", "K"}};
 int size=300;
 
 void saveGame(){
-  String[] saveBoard = new String[12];
+  String[] saveBoard = new String[14];
   int i=0;
   for(int r=0; r<3; r++){
 	for(int c=0; c<4; c++){
 	  saveBoard[i] = board[r][c];
-	  i++
+	  i++;
 	}
   }
+  saveBoard[12] = str(blank_position[0]);
+  saveBoard[13] = str(blank_position[1]);
   saveStrings("data.txt", saveBoard);
+}
+
+void loadGame(){
+  String[] loadBoard = loadStrings("data.txt");
+  int i=0;
+  for(int r=0; r<3; r++){
+	for(int c=0; c<4; c++){
+	  board[r][c] = loadBoard[i];
+	  print(loadBoard[i]);
+	  if(loadBoard[i] == " "){
+		  blank_position[0]=r;
+		  blank_position[1]=c;
+		  println(r,c);
+	  }
+	  i++;
+	}
+  }
+  blank_position[0] = int(loadBoard[12]);
+  blank_position[1] = int(loadBoard[13]);
 }
 
 
@@ -22,6 +42,7 @@ void setup(){
   background(255);
   textSize(100);
   randomAlpha();
+  loadGame();
 }
 
 void draw(){
