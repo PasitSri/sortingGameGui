@@ -1,7 +1,21 @@
+/*import java.io.*;*/
 int w=1200, h=900;
 int[] blank_position={2, 2};
-char[][] board={{'A', 'B', 'C', 'D'}, {'E', 'F', 'G', 'H'}, {'I', 'J', ' ', 'K'}};
+String[][] board={{"A", "B", "C", "D"}, {"E", "F", "G", "H"}, {"I", "J", " ", "K"}};
 int size=300;
+
+void saveGame(){
+  String[] saveBoard = new String[12];
+  int i=0;
+  for(int r=0; r<3; r++){
+	for(int c=0; c<4; c++){
+	  saveBoard[i] = board[r][c];
+	  i++
+	}
+  }
+  saveStrings("data.txt", saveBoard);
+}
+
 
 void setup(){
   size(1200,900);
@@ -16,10 +30,11 @@ void draw(){
   if(checkWinner(board)){
     win_sceen();
   }
+  saveGame();
 }
 
 void randomAlpha(){
-  char buffer;
+  String buffer;
   for(int r=0; r<3; r++){
     for(int c=0; c<4; c++){
       int ranRow = int( random( 3 ) );
@@ -27,11 +42,11 @@ void randomAlpha(){
       buffer = board[r][c];
       board[r][c] = board[ranRow][ranCol];
       board[ranRow][ranCol] = buffer;
-      if(board[ranRow][ranCol] == ' '){
+      if(board[ranRow][ranCol] == " "){
         blank_position[0] = ranRow;
         blank_position[1] = ranCol;
       }
-    else if(board[r][c] == ' '){
+    else if(board[r][c] == " "){
       blank_position[0] = r;
       blank_position[1] = c;
     }
@@ -65,7 +80,7 @@ void swapChar(){
           if(mouseX>block_x && mouseX<block_x+size && mouseY>block_y && mouseY<block_y+size){
             if(((r-1==blank_position[0]||r+1==blank_position[0]) && c==blank_position[1]) || ((c-1==blank_position[1]||c+1==blank_position[1]) &&r==blank_position[0])){
             board[blank_position[0]][blank_position[1]] = board[r][c];
-            board[r][c] = ' ';
+            board[r][c] = " ";
             blank_position[0] = r;
             blank_position[1] = c;
 
@@ -80,8 +95,8 @@ void swapChar(){
   
 }
 
-boolean checkWinner(char[][] board){
-  char[][] boardWinner={{'A', 'B', 'C', 'D'}, {'E', 'F', 'G', 'H'}, {'I', 'J', 'K', ' '}};
+boolean checkWinner(String[][] board){
+  String[][] boardWinner={{"A", "B", "C", "D"}, {"E", "F", "G", "H"}, {"I", "J", "K", " "}};
   for(int r=0; r<3; r++){
     for(int c=0; c<4; c++){
       if(board[r][c] != boardWinner[r][c]){
