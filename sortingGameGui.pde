@@ -1,20 +1,12 @@
 int w=800, h=600;
 int[] blank_position={2, 2};
 char[][] board={{'A', 'B', 'C', 'D'}, {'E', 'F', 'G', 'H'}, {'I', 'J', ' ', 'K'}};
-<<<<<<< HEAD
-//char[][] board[3][4];
 int size=200;
 boolean firsttime = true;
 int[] Space = {0,0};
 
 void setup(){
   size(800, 600);
-=======
-int size=300;
-
-void setup(){
-  size(1200,900);
->>>>>>> 4125102036fa3f315f4d494a02e8c2cdb967eddb
   background(255);
   textSize(100);
   randomAlpha();
