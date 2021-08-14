@@ -8,9 +8,9 @@ boolean check;
 void saveGame(){
   String[] saveBoard = new String[13];
   int i=0;
-  for(int r=0; r<3; r++){
+ for(int r=0; r<3; r++){
     for(int c=0; c<4; c++){
-      saveBoard[i] = board[r][c]+r+c;
+      saveBoard[i] = board[r][c];
       i++;
     }
   }
@@ -48,6 +48,7 @@ void setup(){
 }
 
 void draw(){
+  saveButton()
   if(check){
     WScreen();
   }
@@ -142,7 +143,6 @@ void createBoard(){
 void swapChar(){
   int block_x=0;
   int block_y=0;
-  String[] saveBoard = {""};
   if(mousePressed == true){
       for(int r=0; r<3; r++){
         line(0, size*r, w, size*r);
@@ -155,19 +155,23 @@ void swapChar(){
               blank_position[1] = c;
             }
           }
-          if(mouseX>0 && mouseX<400 && mouseY>600 && mouseY<650){
-            saveGame();
-            exit();
-          }
-          if(mouseX>400 && mouseX<800 && mouseY>600 && mouseY<650){
-            saveStrings("data.txt", saveBoard);
-            exit();
-          }
           block_x += size;
         }
         block_x =0;
         block_y += size;
     }
+  }
+}
+
+void saveButton(){
+  String[] saveBoard = {""};
+  if(mouseX>0 && mouseX<400 && mouseY>600 && mouseY<650){
+	saveGame();
+	exit();
+  }
+  if(mouseX>400 && mouseX<800 && mouseY>600 && mouseY<650){
+	saveStrings("data.txt", saveBoard);
+	exit();
   }
 }
 
