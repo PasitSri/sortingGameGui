@@ -48,7 +48,7 @@ void setup(){
 }
 
 void draw(){
-  saveButton()
+  saveButton();
   if(check){
     WScreen();
   }
@@ -141,24 +141,17 @@ void createBoard(){
 }
 
 void swapChar(){
-  int block_x=0;
-  int block_y=0;
+  int col;
+  int row;
   if(mousePressed == true){
-      for(int r=0; r<3; r++){
-        line(0, size*r, w, size*r);
-        for(int c=0; c<4; c++){
-          if(mouseX>block_x && mouseX<block_x+size && mouseY>block_y && mouseY<block_y+size){
-            if(((r-1==blank_position[0]||r+1==blank_position[0]) && c==blank_position[1]) || ((c-1==blank_position[1]||c+1==blank_position[1]) &&r==blank_position[0])){
-              board[blank_position[0]][blank_position[1]] = board[r][c];
-              board[r][c] = " ";
-              blank_position[0] = r;
-              blank_position[1] = c;
-            }
-          }
-          block_x += size;
-        }
-        block_x =0;
-        block_y += size;
+    col = (mouseX)/200;
+    row = (mouseY)/200;
+    println(row, col);
+    if(((row-1==blank_position[0]||row+1==blank_position[0]) && col==blank_position[1]) || ((col-1==blank_position[1]||col+1==blank_position[1]) &&row==blank_position[0])){
+      board[blank_position[0]][blank_position[1]] = board[row][col];
+      board[row][col] = " ";
+      blank_position[0] = row;
+      blank_position[1] = col;
     }
   }
 }
