@@ -161,7 +161,7 @@ void swapChar(){
   if(mousePressed == true){
     col = (mouseX)/200;
     row = (mouseY)/200;
-    if(((row-1==blank_position[0]||row+1==blank_position[0]) && col==blank_position[1]) || ((col-1==blank_position[1]||col+1==blank_position[1]) &&row==blank_position[0]) && mouseY < 600 ){
+    if((((row-1==blank_position[0]||row+1==blank_position[0]) && col==blank_position[1]) || ((col-1==blank_position[1]||col+1==blank_position[1]) &&row==blank_position[0])) && mouseY < 590 ){
       board[blank_position[0]][blank_position[1]] = board[row][col];
       board[row][col] = " ";
       blank_position[0] = row;
