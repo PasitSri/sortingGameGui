@@ -1,14 +1,13 @@
-A
-B
-C
-D
 E
-F
-G
-H
 I
-J
-K
  
-2
-3
+D
+F
+A
+H
+B
+J
+G
+C
+K
+null
