@@ -2,8 +2,9 @@ int w=800, h=600;
 int[] blank_position={2, 2};
 char[][] board={ {'A','B','C','D'},{'E','F','G','H'},{'I','J',' ','K'}};
 int size=200;
-File f = new File("gamesave.csv");
 boolean check=true;
+Table table;
+String filename = "gamesave.csv";
 
 void SaveGame() {
     byte[] saveline = new byte[24];
@@ -16,34 +17,30 @@ void SaveGame() {
             nextindex++;
         }
     }
-    saveBytes("gamesave.csv", saveline);
+    saveBytes(filename, saveline);
+    exit();
 }
 
 void LoadGame() {
-  String[] loadBoard = loadStrings("gamesave.csv");
+  String[] loadBoard = loadStrings(filename);
+  String[] br = split(loadBoard[0],',');
+  int i = 0;
   for (int y = 0;y < 3;y++) {
-    String br[] = loadBoard[y].split(",");
     for (int x = 0;x < 4;x++) {
-      board[y][x] = br[x].charAt(0);
+      board[y][x] = br[i].charAt(0);
       if(board[y][x]== ' '){
         blank_position[0]=y;
         blank_position[1]=x;
       }
+      i++;
     }
   }
 }
 
 void setup(){
-  LoadGame();
   size(800, 650);
   background(255);
-  randomAlpha();/*
-  if(LoadGame.loadBoard < 10){
-    check = false;
-  }
-  else{
-    check = true;
-  }*/
+  randomAlpha();
   check = true;
 }
 
@@ -61,42 +58,62 @@ void draw(){
 }
 
 void WScreen(){
-  String[] saveBoard = {""};
+  String[] loadBoard = loadStrings(filename);
+  String[] br = split(loadBoard[0],',');
+  byte[] saveBoard = {' '};
   background(255);
-  textSize(40);
-  fill(0);
-  text("You have saved game", 90, 220);
-  textSize(50);
-  text("Do you want to continue?", 90, 270);
-  textSize(30);
-  if(mouseX > 150 && mouseX < 350 && mouseY > 300 && mouseY < 350){
+  if(br.length < 10){
+    textSize(40);
     fill(50);
-    text("No, New Game", 400, 350);
-    fill(0, 100, 200);
-    text("Yes, Continue", 150, 350);
-    if(mousePressed == true){
-      LoadGame();
-      check=false;
-      clear();
-      redraw();
-    }
-  }
-  else if(mouseX > 400 && mouseX < 600 && mouseY > 300 && mouseY < 350){
-    fill(0, 100, 200);
-    text("No, New Game", 400, 350);
-    fill(50);
-    text("Yes, Continue", 150, 350);
-    if(mousePressed == true){
-      saveStrings("data.csv", saveBoard);
-      check=false;
-      clear();
-      redraw();
-    }
+    text("New Game", w/2-100, h/2+30);
+    if(mouseX > w/2-100 && mouseX < w/2+100 && mouseY > h/2 && mouseY < h/2+30){
+      fill(0, 100, 200);
+      text("New Game", w/2-100, h/2+30);
+      if(mousePressed == true){
+        randomAlpha();
+        check = false;
+        clear();
+        redraw();
+      }
+    }  
   }
   else{
-    fill(50);
-    text("Yes, Continue", 150, 350);
-    text("No, New Game", 400, 350);
+    textSize(40);
+    fill(0);
+    text("You have saved game", 90, 220);
+    textSize(50);
+    text("Do you want to continue?", 90, 270);
+    textSize(30);
+    if(mouseX > 150 && mouseX < 350 && mouseY > 300 && mouseY < 350){
+      fill(50);
+      text("No, New Game", 400, 350);
+      fill(0, 100, 200);
+      text("Yes, Continue", 150, 350);
+      if(mousePressed == true){
+        LoadGame();
+        check = false;
+        clear();
+        redraw();
+      }
+    }
+    else if(mouseX > 400 && mouseX < 600 && mouseY > 300 && mouseY < 350){
+      fill(0, 100, 200);
+      text("No, New Game", 400, 350);
+      fill(50);
+      text("Yes, Continue", 150, 350);
+      if(mousePressed == true){
+        saveBytes(filename, saveBoard);
+        randomAlpha();
+        check = false;
+        clear();
+        redraw();
+      }
+    }
+    else{
+      fill(50);
+      text("Yes, Continue", 150, 350);
+      text("No, New Game", 400, 350);
+    }
   }
 }
 
@@ -161,10 +178,9 @@ void swapChar(){
           }
           if(mouseX>0 && mouseX<400 && mouseY>600 && mouseY<650){
             SaveGame();
-            exit();
           }
           if(mouseX>400 && mouseX<800 && mouseY>600 && mouseY<650){
-            saveBytes("data.csv", saveBoard);
+            saveBytes(filename, saveBoard);
             exit();
           }
           block_x += size;
