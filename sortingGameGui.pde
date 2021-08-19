@@ -5,30 +5,42 @@ int size=200;
 boolean check=true;
 Table table;
 String filename = "gamesave.xml";
-XML xml;
- 
+
 void SaveGame(String filename) {
-  String data = "<SortingGame>" + "<Alphabet><Row1>" + board[0][0] + board[0][1] + board[0][2] + board[0][3] + "</Row1><Row2>" +  board[1][0] + board[1][1] + board[1][2] + board[1][3] + "</Row2><Row3>"+  board[2][0] + board[2][1] + board[2][2] + board[2][3] + "</Row3></Alphabet></SortingGame>";
-  xml = parseXML(data);
+  XML xml = loadXML(filename);
+  XML children = xml.getChild("alpha");
+  String data = "";
+  for (int y = 0;y < 3;y++) {
+    for (int x = 0;x < 4;x++) {
+      data += board[y][x];
+      if(board[y][x]== ' '){
+        blank_position[0]=y;
+        blank_position[1]=x;
+      }
+    }
+  }
+  xml.removeChild(children);
+  XML newChild = xml.addChild("alpha");
+  newChild.setContent(data);
   saveXML(xml,filename);
   exit();
 }
 
-void LoadGame(String filename) {
-    final XML xml = loadXML(filename);
-    XML Alphabet = xml.getChildren("Alphabet")[0];
-    String[] row = {Alphabet.getChildren("Row1")[0].getContent(),Alphabet.getChildren("Row2")[0].getContent(),Alphabet.getChildren("Row3")[0].getContent()};
-    int i = 0;
-    for (int y = 0;y < 3;y++) {
-        for (int x = 0;x < 4;x++) {
-            board[y][x] = row[i].charAt(0);
-            if(board[y][x]== ' '){
-              blank_position[0]=y;
-              blank_position[1]=x;
-            }
-            i++;
-        }
-    }
+void LoadGame() {
+  XML xml = loadXML(filename);
+  XML children = xml.getChild("alpha");
+  String Alpha = children.getContent();
+  int i = 0;
+  for (int y = 0;y < 3;y++) {
+      for (int x = 0;x < 4;x++) {
+          board[y][x] = Alpha.charAt(i);
+          if(board[y][x]==' '){
+            blank_position[0]=y;
+            blank_position[1]=x;
+          }
+          i++;
+      }
+  }
 }
 
 void setup(){
@@ -52,11 +64,11 @@ void draw(){
 }
 
 void WScreen(){
-  String[] loadBoard = loadStrings(filename);
-  String[] br = split(loadBoard[0],',');
-  byte[] saveBoard = {' '};
+  XML xml = loadXML(filename);
+  XML children = xml.getChild("alpha");
+  String Alpha = children.getContent();
   background(255);
-  if(br.length < 10){
+  if(Alpha.length() < 10){
     textSize(40);
     fill(50);
     text("New Game", w/2-100, h/2+30);
@@ -84,7 +96,7 @@ void WScreen(){
       fill(0, 100, 200);
       text("Yes, Continue", 150, 350);
       if(mousePressed == true){
-        LoadGame(filename);
+        LoadGame();
         check = false;
         clear();
         redraw();
@@ -96,7 +108,7 @@ void WScreen(){
       fill(50);
       text("Yes, Continue", 150, 350);
       if(mousePressed == true){
-        saveBytes(filename, saveBoard);
+        MakeNull();
         randomAlpha();
         check = false;
         clear();
@@ -110,7 +122,14 @@ void WScreen(){
     }
   }
 }
-
+void MakeNull(){
+  XML xml = loadXML(filename);
+  XML children = xml.getChild("alpha");
+  xml.removeChild(children);
+  XML newChild = xml.addChild("alpha");
+  newChild.setContent("");
+  saveXML(xml,filename);
+}
 void randomAlpha(){
   char buffer;
   for(int r=0; r<3; r++){
@@ -155,9 +174,10 @@ void createBoard(){
 }
 
 void swapChar(){
+  XML xml = loadXML(filename);
+  XML children = xml.getChild("alpha");
   int block_x=0;
   int block_y=0;
-  byte[] saveBoard = {' '};
   if(mousePressed == true){
       for(int r=0; r<3; r++){
         line(0, size*r, w, size*r);
@@ -174,7 +194,7 @@ void swapChar(){
             SaveGame(filename);
           }
           if(mouseX>400 && mouseX<800 && mouseY>600 && mouseY<650){
-            saveBytes(filename, saveBoard);
+            MakeNull();
             exit();
           }
           block_x += size;
@@ -198,9 +218,12 @@ boolean checkWinner(char[][] board){
 }
 
 void win_sceen(){
+  XML xml = loadXML(filename);
+  XML children = xml.getChild("alpha");
   if(checkWinner(board) == true){
     background(255);
     textSize(125);
     text("VICTORY", 130, 350);
+    MakeNull();
   }
 }
