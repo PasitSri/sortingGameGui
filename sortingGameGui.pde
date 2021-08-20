@@ -3,10 +3,9 @@ int[] blank_position={2, 2};
 char[][] board={ {'A','B','C','D'},{'E','F','G','H'},{'I','J',' ','K'}};
 int size=200;
 boolean check=true;
-Table table;
 String filename = "gamesave.xml";
 
-void SaveGame(String filename) {
+void SaveGame() {
   XML xml = loadXML(filename);
   XML children = xml.getChild("alpha");
   String data = "";
@@ -174,8 +173,6 @@ void createBoard(){
 }
 
 void swapChar(){
-  XML xml = loadXML(filename);
-  XML children = xml.getChild("alpha");
   int block_x=0;
   int block_y=0;
   if(mousePressed == true){
@@ -191,7 +188,7 @@ void swapChar(){
             }
           }
           if(mouseX>0 && mouseX<400 && mouseY>600 && mouseY<650){
-            SaveGame(filename);
+            SaveGame();
           }
           if(mouseX>400 && mouseX<800 && mouseY>600 && mouseY<650){
             MakeNull();
@@ -218,8 +215,6 @@ boolean checkWinner(char[][] board){
 }
 
 void win_sceen(){
-  XML xml = loadXML(filename);
-  XML children = xml.getChild("alpha");
   if(checkWinner(board) == true){
     background(255);
     textSize(125);
